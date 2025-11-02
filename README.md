@@ -1,29 +1,45 @@
----
-title: "README.md"
-output: html_document
-date: "2025-09-27"
----
+# Among U.S. adults in NHANES (2017–2018), how is vitamin D status associated with fasting serum insulin and glucose levels, after adjusting for age, sex, and race/ethnicity?
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+## Project Description
+This repository investigates the association between serum 25-hydroxyvitamin D [25(OH)D] status and fasting biomarkers of glycemia (serum insulin and glucose) among U.S. adults using NHANES 2017–2018 data. The analysis will account for NHANES' complex, multistage survey design and adjust for key confounders (age, sex, race/ethnicity). Findings aim to contextualize vitamin D's relationship with insulin resistance and glycemic control in a nationally representative sample.
 
-## R Markdown
+## Dataset
+- **Name:** NHANES 2017–2018
+- **Key files likely used:**
+  - Demographics (`DEMO_J.XPT`)
+  - Vitamin D (`VID_J.XPT`)
+  - Fasting insulin (`INS_J.XPT`)
+  - Fasting glucose (`GLU_J.XPT`)
+  - Fasting questionnaire & weights (`FASTQ_J.XPT`, includes `WTSAF2YR`)
+- **Merge key:** `SEQN`
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Research Questions & Outcomes
+- **Exposure:** Serum 25(OH)D (continuous; and categories <20, 20–29, ≥30 ng/mL).
+- **Outcomes:** Fasting insulin (µU/mL), fasting glucose (mg/dL).
+- **Covariates:** Age, sex, race/ethnicity (NHANES categories).
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### Planned Analyses (pick & refine)
+1. Survey-weighted linear regression (primary)
+2. Check nonlinearity (restricted cubic splines)
+3. Sensitivity: add BMI, season, smoking, PA; test trend with categories
+4. Effect modification by sex or race/ethnicity
 
-```{r cars}
-summary(cars)
-```
+## Handling Complex Survey Design
+Use `WTSAF2YR` (fasting subsample weight) with `SDMVSTRA`, `SDMVPSU`. Fit models with `survey` / `srvyr`.
 
-## Including Plots
+## How to Run
+1) Place NHANES XPT files in `/data`.  
+2) Open `/code/analysis_code.Rmd`.  
+3) Knit to produce tables/figures in `/output`.
 
-You can also embed plots, for example:
+## Files Included
+- `README.md`
+- `code/analysis_code.Rmd` (to be created)
+- `data/` (NHANES XPT files)
+- `output/` (results)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+## Author
+- Name: Abrham Azale
+- Course: Fall_2025.PHCC.6009.01 - Advanced Data Analysis
+- Date: November 2025
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
